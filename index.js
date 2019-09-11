@@ -4,8 +4,8 @@
 const
   express = require('express'),
   bodyParser = require('body-parser'),
-  app = express().use(bodyParser.json()); // creates express http server
-
+  app = express().use(bodyParser.json());
+var accesstoken = "EAAFbH3hsSk4BADtHOrJsxiZAhL2FbwYKJExMmhEKsTkJKbQKe9swweBE81NY0RMyZBVRKSGpSlOiJz1d12ZCTyk2lZB839oxaeRiF9CqZBilodFP2jmW3sEdNUtBGX8kY2rZBydY5Uopp2uQejqX0bcOBuxsZC9KNgxWyZB9iedYOhv3vvN5SaDVbvLZBTMphzhsZD";
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 // Adds support for GET requests to our webhook
@@ -50,6 +50,11 @@ app.post('/webhook', (req, res) => {
         // will only ever contain one message, so we get index 0
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
+        var senderID = webhook_event.message.text;
+        console.log ('reply', userReply);
+
+
+        
       });
   
       // Returns a '200 OK' response to all requests
