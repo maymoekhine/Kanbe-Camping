@@ -1,14 +1,16 @@
 'use strict';
 
 // Imports dependencies and set up http server
-const
-  express = require('express'),
-  bodyParser = require('body-parser'),
-  app = express().use(bodyParser.json());
+const  express = require('express');
+const bodyParser = require('body-parser');
+const app = express().use(bodyParser.json());
 var accesstoken = "EAAFbH3hsSk4BADtHOrJsxiZAhL2FbwYKJExMmhEKsTkJKbQKe9swweBE81NY0RMyZBVRKSGpSlOiJz1d12ZCTyk2lZB839oxaeRiF9CqZBilodFP2jmW3sEdNUtBGX8kY2rZBydY5Uopp2uQejqX0bcOBuxsZC9KNgxWyZB9iedYOhv3vvN5SaDVbvLZBTMphzhsZD";
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
-// Adds support for GET requests to our webhook
+
+app.get('/', (req, res) =>{
+  console.log("within /");
+  res.send("Hello World");
+})
+
 app.get('/webhook', (req, res) => {
 
     // Your verify token. Should be a random string.
@@ -35,7 +37,7 @@ app.get('/webhook', (req, res) => {
       }
     }
   });
-  // Creates the endpoint for our webhook 
+  // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {  
  
     let body = req.body;
@@ -50,10 +52,7 @@ app.post('/webhook', (req, res) => {
         // will only ever contain one message, so we get index 0
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
-        var senderID = webhook_event.message.text;
-        console.log ('reply', userReply);
-
-
+        //var senderID = webhook_event.message.;        
         
       });
   
@@ -65,3 +64,6 @@ app.post('/webhook', (req, res) => {
     }
   
   });
+
+  // Sets server port and logs message on success
+  app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
